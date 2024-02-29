@@ -1,0 +1,96 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model Post {
+  id        Int     @id @default(autoincrement())
+  title     String
+  content   String?
+  published Boolean @default(false)
+  author    User?   @relation(fields: [authorId], references: [id])
+  authorId  Int
+}
+
+model User {
+  id            Int       @id @default(autoincrement())
+  name          String?
+  email         String?   @unique
+  createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
+  posts         Post[]
+  role          Role     @default(USER)
+  recipes       Recipe[]
+  @@map(name: "users")
+}
+
+model Todo {
+  id        Int      @id @default(autoincrement())
+  title     String
+  complete  Boolean
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Recipe {
+  id           Int           @id @default(autoincrement())
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  name         String
+  ingredients  Ingredient[]
+  instructions Instruction[]
+  author       User?          @relation(fields: [authorId], references: [id])
+  authorId     Int
+}
+
+model Invoice {
+  id         Int      @id @default(autoincrement())
+  amount     Decimal
+  date       String
+  status     Status
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  customer   Customer @relation(fields: [customerId], references: [id])
+  customerId Int
+}
+
+enum Status {
+  PENDING
+  PAID
+}
+
+model Customer {
+  id       Int       @id @default(autoincrement())
+  email    String    @unique
+  name     String?
+  role     Role      @default(CUSTOMER)
+  invoices Invoice[]
+}
+
+model Ingredient {
+  name     String
+  amount   String
+  Recipe   Recipe @relation(fields: [recipeId], references: [id])
+  recipeId Int
+
+  @@id([recipeId])
+}
+
+model Instruction {
+  description String
+  Recipe      Recipe @relation(fields: [recipeId], references: [id])
+  recipeId    Int
+
+  @@id([recipeId])
+}
+
+enum Role {
+  USER
+  CUSTOMER
+  ADMIN
+}
