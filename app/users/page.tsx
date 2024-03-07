@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 
 interface User {
   id: number;
@@ -33,7 +34,13 @@ const UsersPage = async () => {
 
       </tbody>
     </table>
+
+    <button className='btn btn-primary' style={{margin: '10px 0px', width: '150px', height: '40px'}}>
+      <Link href="/">Home</Link>
+    </button>
     </>
+
+
   )
 }
 

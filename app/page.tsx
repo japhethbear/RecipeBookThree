@@ -1,29 +1,31 @@
 import Link from 'next/link';
-import ProductCard from './users/components/ProductCard/ProductCard';
+import ProductCard from '../components/ProductCard/ProductCard';
+import Post from '../components/Post/Post';
 import prisma from '@/prisma/prisma';
 
-async function getPosts() {
-  const posts = await prisma.post.findMany({
-    where: { published: true}, 
-    include: { 
-      author: {
-        select: {name: true}
-      }
-    }
-  })
-  return posts;
-}
-
 export default async function Home() {
-  
-  const posts = await getPosts();
-  console.log({posts});
+
   
   return (
     <main>
-      <h1>Hello World</h1>
-      <Link href="/users">Users</Link>
-      <ProductCard/>
+      <h1 style={{ display: 'flex', justifyContent: 'center' }}>Next.Js Prisma Postgresql CRUD App</h1>
+      <div style={{ display: 'flex', flexDirection: 'column', margin: '10px 0px', justifyContent: 'flex-start'}}>
+        <button className="btn btn-secondary" style={{margin: '10px 0px', width: '150px', height: '40px'}}>
+          <Link href="/users">View Users</Link>
+        </button>
+        <button className='btn btn-secondary' style={{margin: '10px 0px', width: '150px', height: '40px'}}>
+          <Link href="/users/new">Create New User</Link>
+        </button>
+        <button className='btn btn-secondary' style={{margin: '10px 0px', width: '150px', height: '40px'}}>
+          <Link href="/posts">See Posts</Link>
+        </button>
+        <button className='btn btn-secondary' style={{margin: '10px 0px', width: '150px', height: '40px'}}>
+          <Link href="/posts/new">Create New Post</Link>
+        </button>
+
+
+      </div>
+    
     </main>
   );
 }
