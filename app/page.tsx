@@ -1,7 +1,4 @@
 import Link from 'next/link';
-import ProductCard from '../components/ProductCard/ProductCard';
-import Post from '../components/Post/Post';
-import prisma from '@/prisma/prisma';
 
 export default async function Home() {
 

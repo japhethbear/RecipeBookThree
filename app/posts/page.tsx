@@ -4,6 +4,8 @@ import Post from '../../components/Post/Post';
 import Link from 'next/link';
 import { Post as PostType } from '@prisma/client';
 
+
+
 interface PostWithAuthor extends PostType {
   author: {
     name: string;
@@ -19,7 +21,7 @@ async function getPosts(): Promise<PostWithAuthor[]> {
         }
       }
     })
-    return posts;
+    return posts as PostWithAuthor[];
   }
 
 export default async function Posts() {
