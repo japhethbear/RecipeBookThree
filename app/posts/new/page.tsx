@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-const newPost = () => {
+const NewPost = () => {
 
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
@@ -73,4 +73,4 @@ const newPost = () => {
   )
 };
 
-export default newPost
+export default NewPost
