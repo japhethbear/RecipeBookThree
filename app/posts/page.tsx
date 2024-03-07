@@ -2,9 +2,15 @@ import React from 'react'
 import prisma from '@/prisma/prisma';
 import Post from '../../components/Post/Post';
 import Link from 'next/link';
+import { Post as PostType } from '@prisma/client';
 
+interface PostWithAuthor extends PostType {
+  author: {
+    name: string;
+  }
+}
 
-async function getPosts() {
+async function getPosts(): Promise<PostWithAuthor[]> {
     const posts = await prisma.post.findMany({
       where: { published: true}, 
       include: { 
