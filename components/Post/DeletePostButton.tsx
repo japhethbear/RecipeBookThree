@@ -1,7 +1,11 @@
 'use client'
 import { useRouter } from 'next/navigation';
 
-export default function DeletePostButton({postId}) {
+interface DeletePostButtonProps {
+    postId: number;
+};
+
+export default function DeletePostButton({ postId }: DeletePostButtonProps) {
     const router = useRouter();
 
     async function handleClick() {
