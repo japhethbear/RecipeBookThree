@@ -24,6 +24,8 @@ async function getPosts(): Promise<PostWithAuthor[]> {
     return posts as PostWithAuthor[];
   }
 
+export const dynamic = 'force-dynamic'
+
 export default async function Posts() {
     const posts = await getPosts();
   
