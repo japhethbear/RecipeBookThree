@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
@@ -18,14 +18,15 @@ model Post {
 }
 
 model User {
-  id            Int       @id @default(autoincrement())
-  name          String?
-  email         String?   @unique
-  createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
-  posts         Post[]
-  role          Role     @default(USER)
-  recipes       Recipe[]
+  id        Int      @id @default(autoincrement())
+  name      String?
+  email     String?  @unique
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  posts     Post[]
+  role      Role     @default(USER)
+  recipes   Recipe[]
+
   @@map(name: "users")
 }
 
@@ -44,22 +45,22 @@ model Recipe {
   name         String
   ingredients  Ingredient[]
   instructions Instruction[]
-  author       User?          @relation(fields: [authorId], references: [id])
+  author       User?         @relation(fields: [authorId], references: [id])
   authorId     Int
 }
 
 model Invoice {
-  id         Int      @id @default(autoincrement())
+  id         Int           @id @default(autoincrement())
   amount     Decimal
   date       String
-  status     Status
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  customer   Customer @relation(fields: [customerId], references: [id])
+  status     InvoiceStatus @default(PENDING)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+  customer   Customer      @relation(fields: [customerId], references: [id])
   customerId Int
 }
 
-enum Status {
+enum InvoiceStatus {
   PENDING
   PAID
 }
@@ -93,4 +94,19 @@ enum Role {
   USER
   CUSTOMER
   ADMIN
+}
+
+model Issue {
+  id          Int         @id @default(autoincrement())
+  title       String      @db.VarChar(255)
+  description String      @db.Text
+  status      IssueStatus @default(OPEN)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+enum IssueStatus {
+  OPEN
+  IN_PROGRESS
+  CLOSED
 }
