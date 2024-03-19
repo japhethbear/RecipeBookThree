@@ -12,6 +12,8 @@ const NavBar = () => {
     
     const links = [ 
         { href: '/', label: 'Dashboard' },
+        { href: '/users', label: 'Users' },
+        { href: '/posts', label: 'Posts' },
         { href: '/issues', label: 'Issues' },
     ]
 
