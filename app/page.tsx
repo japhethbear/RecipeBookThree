@@ -25,6 +25,9 @@ export default async function Home() {
         <button className='btn btn-secondary' style={{margin: '10px 0px', width: '150px', height: '40px'}}>
           <Link href="/issues/new">Create New Issue</Link>
         </button>
+        <button className='btn btn-secondary' style={{margin: '10px 0px', width: '150px', height: '40px'}}>
+          <Link href="/recipescraping">Recipe Scraping</Link>
+        </button>
 
 
       </div>

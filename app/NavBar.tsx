@@ -15,6 +15,7 @@ const NavBar = () => {
         { href: '/users', label: 'Users' },
         { href: '/posts', label: 'Posts' },
         { href: '/issues', label: 'Issues' },
+        { href: '/recipescraping', label: 'Recipe Scraping' },
     ]
 
   return (

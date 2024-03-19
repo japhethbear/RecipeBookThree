@@ -13,7 +13,7 @@ const Issue: React.FC<IssueProps> = ({ id, title, description, status }) => {
     <div style={{ border: '1px solid black', padding: '15px', margin: '10px 0px', display: 'flex', flexDirection: 'column' }}>
       <h3>Issue #: {id}</h3>
       <h4>Title: {title}</h4>
-      <p style={{ flex: '1 0 auto' }}>{description}</p>
+      <p style={{ flex: '1 0 auto' }}>Description: {description}</p>
       <p>Status: {status}</p>
       <DeleteIssueButton id={id} />
     </div>
